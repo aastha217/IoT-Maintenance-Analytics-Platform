@@ -4,9 +4,11 @@ import os
 
 def save_sensor_data(sensor_data):
 
-    file_exists = os.path.isfile("data/sensor_data.csv")
+    file_path = "data/sensor_data.csv"
 
-    with open("data/sensor_data.csv", mode="a", newline="") as file:
+    file_exists = os.path.isfile(file_path)
+
+    with open(file_path, mode="a", newline="") as file:
 
         writer = csv.DictWriter(
             file,

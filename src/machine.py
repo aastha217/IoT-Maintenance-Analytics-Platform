@@ -6,7 +6,6 @@ class Machine:
     def __init__(self, machine_id):
 
         self.machine_id = machine_id
-
         self.health = 100
 
     def generate_reading(self):
@@ -29,7 +28,6 @@ class Machine:
         )
 
         self.health -= random.uniform(0, 0.5)
-
         self.health = max(self.health, 0)
 
         return {
