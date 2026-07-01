@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 
 from anomaly_detector import detect_anomaly
+from data_storage import save_sensor_data
 
 
 def generate_sensor_data(machine_id):
@@ -22,6 +23,8 @@ while True:
         machine_id = f"M{i:03d}"
 
         sensor_data = generate_sensor_data(machine_id)
+
+        save_sensor_data(sensor_data)
 
         print(sensor_data)
 
