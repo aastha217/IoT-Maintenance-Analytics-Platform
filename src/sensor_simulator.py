@@ -1,5 +1,9 @@
 import random
+import time
 from datetime import datetime
+
+from anomaly_detector import detect_anomaly
+
 
 def generate_sensor_data(machine_id):
     return {
@@ -10,6 +14,22 @@ def generate_sensor_data(machine_id):
         "timestamp": datetime.now().isoformat()
     }
 
-for i in range(10):
-    machine_id = f"M{i:03d}"
-    print(generate_sensor_data(machine_id))
+
+while True:
+
+    for i in range(10):
+
+        machine_id = f"M{i:03d}"
+
+        sensor_data = generate_sensor_data(machine_id)
+
+        print(sensor_data)
+
+        alerts = detect_anomaly(sensor_data)
+
+        if alerts:
+            print(f"ALERT for {machine_id}: {alerts}")
+
+        print("-" * 50)
+
+    time.sleep(1)
