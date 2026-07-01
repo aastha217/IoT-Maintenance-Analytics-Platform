@@ -1,28 +1,24 @@
-import random
 import time
 from datetime import datetime
 
 from anomaly_detector import detect_anomaly
 from data_storage import save_sensor_data
+from machine import Machine
 
 
-def generate_sensor_data(machine_id):
-    return {
-        "machine_id": machine_id,
-        "temperature": round(random.uniform(60, 95), 2),
-        "vibration": round(random.uniform(1, 10), 2),
-        "power": round(random.uniform(300, 600), 2),
-        "timestamp": datetime.now().isoformat()
-    }
+machines = [
+    Machine(f"M{i:03d}")
+    for i in range(10)
+]
 
 
 while True:
 
-    for i in range(10):
+    for machine in machines:
 
-        machine_id = f"M{i:03d}"
+        sensor_data = machine.generate_reading()
 
-        sensor_data = generate_sensor_data(machine_id)
+        sensor_data["timestamp"] = datetime.now().isoformat()
 
         save_sensor_data(sensor_data)
 
@@ -31,7 +27,9 @@ while True:
         alerts = detect_anomaly(sensor_data)
 
         if alerts:
-            print(f"ALERT for {machine_id}: {alerts}")
+            print(
+                f"ALERT for {sensor_data['machine_id']}: {alerts}"
+            )
 
         print("-" * 50)
 
