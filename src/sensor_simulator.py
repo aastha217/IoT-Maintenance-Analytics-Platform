@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+from producer import send_sensor_data
 
 from anomaly_detector import detect_anomaly
 from data_storage import save_sensor_data
@@ -27,7 +28,7 @@ while True:
 
         sensor_data["risk_level"] = risk
 
-        save_sensor_data(sensor_data)
+        send_sensor_data(sensor_data)
 
         print(sensor_data)
 
