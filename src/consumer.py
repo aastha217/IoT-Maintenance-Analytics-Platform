@@ -1,7 +1,7 @@
 import json
 
 from kafka import KafkaConsumer
-
+from influx_storage import save_to_influx
 from data_storage import save_sensor_data
 
 
@@ -22,5 +22,7 @@ for message in consumer:
     sensor_data = message.value
 
     save_sensor_data(sensor_data)
+
+    save_to_influx(sensor_data)
 
     print("Received:", sensor_data)
